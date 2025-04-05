@@ -1,4 +1,6 @@
-## QuizCraft is an application that helps in Quiz Management for an organization or for personal use. An admin can create and manage subjects, chapters and quizzes for chapters, as well as users of their organization. The admin can create questions and options for a particular quiz. A user is able to see all the subjects, chapters and quizzes. The user can attempt any quiz of any chapter of their choice. 
+## QuizCraft is a software that helps in Quiz Management for an organization or for personal use. 
+This serves as a study tool to prepare well for examinations. It offers an interactive and growing environment for users/students to take quizzes and track their progress. 
+An administrator manages all the subjects, quizzes and users.
 
 --> STEPS TO RUN THIS LOCALLY
 
