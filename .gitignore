@@ -1,0 +1,4 @@
+.venv
+__pycache__
+testDatabase.sqlite3
+Project Report.pdf

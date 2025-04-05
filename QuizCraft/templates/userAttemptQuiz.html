@@ -1,0 +1,127 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+Attempt Quiz: {{ quiz.name }}
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userAttemptQuiz.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+<div class='quiz-container'>
+    <div class='quiz-header'>
+        <h1>{{ quiz.name }}</h1>
+        <div class='timer' id='quiz-timer'>Time Remaining: <span id='time-display'></span></div>
+    </div>
+    
+    <div class='quiz-info'>
+        <div>
+            <p><strong>Marking Scheme:</strong> +{{ quiz.marking_scheme_pos }}, -{{ quiz.marking_scheme_neg }}</p>
+            <p><strong>Total Questions:</strong> {{ quiz.questions|length }}</p>
+        </div>
+        <div>
+            <p><strong>Attempt No:</strong> {{ quiz_result.attempt_no }}</p>
+            {% if quiz.deadline %}
+                <p><strong>Deadline:</strong> {{ quiz.deadline.strftime('%d %b %Y, %H:%M') }}</p>
+            {% else %}
+                <p><strong>Deadline:</strong> -- -- </p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <form method='POST'>
+        {% for question in quiz.questions %}
+        <div class='question-card'>
+            <div class='question-number'>Question {{ loop.index }}</div>
+            <div class='question-statement'>{{ question.statement }}</div>
+            
+            <div class='options-list'>
+                {% for option in question.options %}
+                <div class='option-item'>
+                    <input type='radio' 
+                           id='option_{{ option.option_id }}' 
+                           name='question_{{ question.question_id }}' 
+                           value='{{ option.option_id }}'
+                           {% if user_answers.get(question.question_id) == option.option_id %}checked{% endif %}>
+                    <label for='option_{{ option.option_id }}'>{{ option.text }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class='submit-container'>
+            <button type='submit' class='submitButton' id='submitButton'>Submit Quiz</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // dom content loaded matlab jab DOM puri tarah load hojaye, new learning
+    document.addEventListener('DOMContentLoaded', function() {
+        const timeParts = '{{ quiz.time_duration }}'.split(':')
+        let remainingTime = parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60
+
+        const quizID = '{{ quiz.quiz_id }}'
+        const userID = '{{ user.id }}'
+
+        const uniqueTimerOnlyForParticularUser = `timer_${userID}_${quizID}`
+
+        const attemptStartedAt = '{{ attempt_started_at }}'
+        
+        if (attemptStartedAt && '{{ quiz_result.quiz_status }}' === 'ongoing') {
+            const startTime = new Date(attemptStartedAt)
+            const currentTime = new Date()
+            const secondsGone = Math.floor((currentTime - startTime) / 1000)
+            
+            if (!isNaN(secondsGone)) {
+                remainingTime = Math.max(0, remainingTime - secondsGone)
+            }
+        }
+
+        const lastLeftQuiz = localStorage.getItem(uniqueTimerOnlyForParticularUser)
+
+        if (lastLeftQuiz && '{{ quiz_result.quiz_status }}' === 'ongoing'){
+            remainingTime = Math.min(remainingTime, parseInt(lastLeftQuiz))
+        }
+
+        if (remainingTime <= 0) {
+            alert('Time is up! Your quiz will be submitted automatically!')
+            document.querySelector('form').submit()
+            return
+        }
+
+        updateTimerDisplay(remainingTime)
+        const timerInterval = setInterval(function() {
+            remainingTime--;
+
+            localStorage.setItem(uniqueTimerOnlyForParticularUser, remainingTime)
+            updateTimerDisplay(remainingTime)
+
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval)
+                localStorage.removeItem(uniqueTimerOnlyForParticularUser)
+                alert('Time is up! Your quiz will be submitted automatically.')
+                document.querySelector('form').submit()
+            }         
+        }, 1000)
+
+        function updateTimerDisplay(seconds) {
+            const hours = Math.floor(seconds / 3600)
+            const minutes = Math.floor((seconds % 3600) / 60)
+            const secs = seconds % 60
+            // pad start matlab jaise hum padding add karte hai for single digit numberss
+            document.getElementById('time-display').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+        }
+
+        // i was forgetting this!!!
+        document.querySelector('form').addEventListener('submit', function(){
+            clearInterval(timerInterval)
+            localStorage.removeItem(uniqueTimerOnlyForParticularUser)
+        })
+    })
+
+</script>
+{% endblock %}

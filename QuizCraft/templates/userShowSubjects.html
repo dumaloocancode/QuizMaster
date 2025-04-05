@@ -1,0 +1,55 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+{{ subject.name }}
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userShowSubjects.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+        <div class="container-for-sub">
+            <div class="subject-header">
+                {% if subject.subject_image %}
+                    <img src="{{ url_for('static', filename = subject.subject_image) }}" alt="{{ subject.name }}'s image" class="subject-image">
+                {% else %}
+                    <img src="{{ url_for('static', filename = 'whereIsTheSubjectImage.jpg') }}" alt="no subject image" class="subject-image">
+                {% endif %}
+                <div class="subject-info">
+                    <h1>{{ subject.name }}</h1>
+                    <p>{{ subject.description }}</p>
+                </div>
+            </div>
+
+            <div class="chapters">
+                <h2>Total Chapters: {{ subject.chapters|length }}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CHAPTER NAME</th>
+                            <th>DESCRIPTION</th>
+                            <th>QUIZZES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if subject.chapters %}
+                            {% for chapter in subject.chapters %}
+                            <tr>
+                                <td><a href="{{ url_for('show_user_chapter', userID = user.id, subjectID = subject.subject_id, chapterID = chapter.chapter_id) }}">{{ chapter.name }}</a></td>
+                                <td>{{ chapter.description }}</td>
+                                <td>{{ chapter.quizzes|length }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="no-chap">Hmm.. No chapters for this subject.. yet!</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+{% endblock %}

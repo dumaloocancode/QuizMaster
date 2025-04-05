@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+User Signup
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename='src/signup.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    <div id="form-container">
+
+        <div class="right-section">
+
+            <form method="POST">
+
+                <h1 class="logo-heading">
+                    <span class="quiz">Quiz</span>
+                    <sup class="super-heading">Craft</sup>
+                </h1>
+
+                <div class="form-content">
+                    <label for="username">NAME</label>
+                    <input type="text" id="username" name="username" required='required' >
+                </div>
+
+                <div class="form-content">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" name="email" required="required">
+                </div>
+
+                <div class="form-content">
+                    <label for="dob">DATE OF BIRTH</label>
+                    <input type="datetime-local" id="dob" name="dob" required="required">
+                </div>
+
+                <div class="form-content">
+                    <label for="role">ROLE</label>
+                    <select id="role" name="role">
+                        <option value="pleaseSelect">Please Select</option>
+                        <option value="admin" disabled>Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+                
+                <div class="form-content">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" name="password" required="required">
+                </div>
+
+                <div class="form-content">
+                    <label for="confirmPassword">CONFIRM PASSWORD</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required="required">
+                </div>
+    
+                <div class="form-content">
+                    <p style="font-family: 'Monotype Corsiva'; font-style: italic;"><b>Already have an account?</b><a href="{{ url_for('login') }}"><b>Login</b></a></p>
+                    <button id="submitButton" type="submit">Create Account</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+{% endblock %}

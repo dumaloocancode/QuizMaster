@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title  %} {% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{% block link %}{% endblock %}">
+    <style>
+        .alert-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: max-content;
+            height: 20px;
+            padding: 20px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            font-family: 'Press Start 2P';
+            animation: fadeOut 3s ease-in-out forwards;
+        }
+
+        .alert {
+            background-color: #9a101b; 
+            color: #f8cccf;
+            border: 1px solid #620008;
+        }
+
+        .success {
+            color: #115221;
+            background-color: #b7e9c4;
+            border: 1px solid #8ed1a0;
+        }
+
+        @keyframes fadeOut{
+            0%{
+                opacity: 1;
+                transform: translateY(0);
+            }
+            33%{
+                opacity: 1;
+                transform: translateY(0);
+            }
+            67%{
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100%{
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+
+</head>
+<body>
+    {% block bodyContent %}
+    {% endblock %}
+    {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                <div class="alert-box alert">
+                    <strong>{{ message }}</strong>
+                </div>
+                {% elif category == 'success' %}
+                <div class="alert-box success">
+                    <strong>{{ message }}</strong>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

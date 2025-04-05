@@ -1,0 +1,60 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Add Questions
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminAddQuestions.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="create-chap-form">
+        <form method="POST">
+            <div class="form-content">
+                <h1>ADD QUESTIONS FOR: {{ quiz.name }}</h1>
+                <div class="text-fields"> 
+                        
+                    <div class="field-group">
+                        <label for="question">QUESTION:</label>
+                        <input name="question" required></input>
+                    </div>
+                    <div class="field-group">
+                        <label for="option1">OPTION 1:</label>
+                        <input type="text" name="option1" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="option2">OPTION 2:</label>
+                        <input type="text" name="option2" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="option3">OPTION 3:</label>
+                        <input type="text" name="option3" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="option4">OPTION 4:</label>
+                        <input type="text" name="option4" required>
+                    </div>
+                    <div class="correct-option">
+                        <label for="correctOption">CORRECT OPTION:</label>
+                        <select class="select-option" name="correctOption" required>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" id="submitButton">Add Question</button>
+                    </div>
+                    <div class="btn" id="submitButton">
+                        <a href="{{ url_for('show_chapter', chapterID = chapter.chapter_id, subjectID = subject.subject_id) }}">CONFIRM QUIZ</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+{% endblock %}

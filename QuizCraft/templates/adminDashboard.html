@@ -1,0 +1,73 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminDashboard.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+    <div class="subjects">
+        {% for subjects in subject %}
+
+            <div class="sub-container">
+
+                <div class="image">
+                    {% if subjects.subject_image %}
+                        <img src="{{ url_for('static', filename=subjects.subject_image) }}" alt="{{ subjects.name }}'s image"> 
+                    {% else %}
+                        <img src="{{ url_for('static', filename='whereIsTheSubjectImage.jpg') }}" alt="no subject image">
+                    {% endif %}
+                </div>
+                
+
+                <div class="sub-name">
+                    <h1><a class="sub-name-redirect" href="{{ url_for('show_subject', subjectID = subjects.subject_id) }}">{{ subjects.name }}</a></h1>
+                </div>
+
+                <div class="sub-description">
+                    <p>
+                        {{ subjects.description }}
+                    </p>
+                </div>
+
+            </div>
+            
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const subjectContainers = document.querySelectorAll('.sub-container');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                subjectContainers.forEach(function(container) {
+                    const subjectName = container.querySelector('.sub-name h1 a').textContent.toLowerCase();
+                    const subjectDescription = container.querySelector('.sub-description p').textContent.toLowerCase();
+                    
+                    if (subjectName.includes(searchTerm) || subjectDescription.includes(searchTerm)) {
+                        container.style.display = '';
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+
+{% block fixedButton %}
+<a id="submitButton" class="add-sub-btn" href="{{ url_for('create_subject') }}">
+    Add Subject
+</a>
+{% endblock %}
+

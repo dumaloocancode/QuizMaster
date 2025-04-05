@@ -1,0 +1,86 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+All user Details
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminUsers.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+    <div class="header">
+        USER DETAILS
+    </div>
+
+    <div class="chapters">
+        <h2>Total Users: {{ totalUsers }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>QUALIFICATION</th>
+                    <th>RANK</th>
+                    <th class="options">OPTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if users %}
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.qualification }}</td>
+                        <td>{{ user.rank }}</td>
+                        <td class="options">
+                            <a href="{{ url_for('admin_user_details', userID = user.id) }}" class="options-btn">VIEW USER</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-chap">No users... yet!</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('search-input');
+                const tableBody = document.querySelector('.chapters table tbody');
+                const userRows = Array.from(tableBody.querySelectorAll('tr'));
+                
+                function toggleNoResultsRow(visible) {
+                    let noResultsRow = tableBody.querySelector('.no-results-row');
+
+                    if (!noResultsRow && visible) {
+                        noResultsRow = document.createElement('tr');
+                        noResultsRow.className = 'no-results-row';
+                        noResultsRow.innerHTML = '<td colspan="5" class="no-chap">No matching users found!</td>';
+                        tableBody.appendChild(noResultsRow);
+                    }
+                    noResultsRow.style.display = visible ? '' : 'none';
+                }
+
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    let visibleCount = 0;
+
+                    userRows.forEach(row => {
+                        const rowText = Array.from(row.cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+                        const match = rowText.includes(searchTerm);
+                        row.style.display = match ? '' : 'none';
+                        if (match) visibleCount++;
+                    });
+
+                    toggleNoResultsRow(visibleCount === 0 && searchTerm !== '');
+                });
+            });
+    </script>
+
+    
+{% endblock %}

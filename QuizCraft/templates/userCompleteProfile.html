@@ -1,0 +1,39 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+Complete Profile
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userCompleteProfile.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="edit-sub-form">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-content">
+                <div class="upload-container">
+                    <label for="userImage" class="upload-box">
+                        <span>CHOOSE PHOTO</span>
+                        <input type="file" id="userImage" name="userImage">
+                    </label>
+                </div>
+                <div class="text-fields">
+                    <div class="field-group">
+                        <label><h1>COMPLETE YOUR PROFILE</h1></label>
+                    </div>
+                    <div class="field-group">
+                        <label for="userQualification">QUALIFICATION</label>
+                        <input type="text" id="userQualification" name="userQualification">
+                    </div>
+                    <div>
+                        <button type="submit" id="submitButton">Confirm Changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+{% endblock %}

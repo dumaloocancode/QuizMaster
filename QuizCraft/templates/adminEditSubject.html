@@ -1,0 +1,40 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Add Subject
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminEditSubject.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="edit-sub-form">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-content">
+                <div class="upload-container">
+                    <label for="subjectImage" class="upload-box">
+                        <span>CHOOSE PHOTO</span>
+                        <input type="file" id="subjectImage" name="subjectImage">
+                    </label>
+                </div>
+                <div class="text-fields">
+                    <div class="field-group">
+                        <label for="subjectName">SUBJECT NAME</label>
+                        <input type="text" id="subjectName" name="subjectName">
+                    </div>
+                    <div class="field-group">
+                        <label for="subjectDescription">SUBJECT DESCRIPTION</label>
+                        <input type="text" id="subjectDescription" name="subjectDescription">
+                    </div>
+                    <div>
+                        <button type="submit" id="submitButton">Confirm Changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+{% endblock %}

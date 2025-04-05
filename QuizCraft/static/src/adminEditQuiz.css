@@ -1,0 +1,199 @@
+.left-part{
+    width: 80%;
+    padding: 10px;
+    margin: 0 auto;
+    color: #2f5f48;
+}
+
+.text-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.field-group label {
+    font-family: 'Play', sans-serif;
+    font-weight: bold;
+}
+
+.field-group input {
+    text-transform: none;
+    background-color: inherit;
+    border: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+    width: 100%;
+    height: auto;
+    padding: 0.8em 1em 0.8em 0.4em;
+    font-family: 'Play';
+    font-size: 16px;
+    font-weight: 600;
+    color: #2f5f48;
+}
+
+.field-group input:focus {
+    outline: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+}
+
+.field-group input:hover {
+    border-bottom-color: #2f5f48; /* Change border color on hover */
+}
+
+.form-content{
+    width: 75%;
+}
+
+.scheme{
+    display: flex;
+    /* gap: 60px; */
+    justify-content: space-between;
+}
+
+.create-chap-form{
+    padding-left: 20vw;
+}
+
+form{
+    width: 100%;
+}
+
+.create-quiz-btn{
+    position: relative;
+    left: 22.8vw;
+    margin-top: 20px;
+}
+
+.deadline{
+    font-family: 'Play';
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.question-heading{
+    font-family: 'Arial';
+    font-size: 20px;
+    font-weight: bold;
+    margin: 30px;
+}
+
+.question-container{
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.correct-option label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+select {
+    text-transform: none;
+    background-color: inherit;
+    border: none;
+    /* border-bottom: 1px solid rgba(142, 108, 108, 0.4); */
+    /* border-radius: 0.2em; */
+    border-bottom:1px solid rgba(101, 98, 98, 0.4);
+    width: 100%;
+    height: auto;
+    padding: 0.8em 1em 0.8em 0.4em;
+    font-family: 'Play';
+    font-size: 14px;
+    font-weight: 600;
+    color: #2f5f48;
+    line-height: 1.2em;
+    letter-spacing: -0.2px;
+    margin-left: 8px;
+}
+  
+select:focus {
+    outline: none;
+    border-bottom: 1px solid #2f5f48;
+}
+
+
+.question-container .field-group{
+    margin: 10px;
+}
+
+.question-options .field-group input {
+    width: 100%; 
+    padding: 12px; 
+    font-size: 16px; 
+    margin-bottom: 15px; 
+}
+
+.question-options .form-content {
+    width: 80%; 
+    max-width: 800px; 
+}
+
+.question-options .select-option {
+    width: 200px;
+    padding: 10px; 
+    font-size: 16px;
+}
+
+#deadline{
+    width: 20%;
+    font-family: 'Play';
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid rgba(101, 98, 98, 0.4);
+}
+
+#deadline:hover{
+    border: 1px solid #2f5f48;
+}
+
+#submitButton {
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    background-color: transparent;
+    color: #2f5f48;
+    border: 2px solid #2f5f48;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#submitButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2f5f48;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+#submitButton:hover::before {
+    transform: scaleY(1);
+}
+
+#submitButton:hover {
+    color: beige;
+}

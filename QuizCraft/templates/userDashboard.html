@@ -1,0 +1,70 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userDashboard.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+<div class="container-for-sub">
+    <div class="subject-header">
+        {% if user.profile_picture %}
+            <img src="{{ url_for('static', filename = user.profile_picture) }}" alt="{{ user.name }}'s profile image" class="subject-image">
+        {% else %}
+            <img src="{{ url_for('static', filename = 'whereIsTheSubjectImage.jpg') }}" alt="no profile image" class="subject-image">
+        {% endif %}
+        <div class="subject-info">
+            <h1>{{ user.name }}</h1>
+            <h2>{{ user.email }}</h2>
+            <h3>{{ user.qualification }}</h3>
+            <h3>{{ user.rank }}</h3>
+            <div class="actions">
+                <a href="{{ url_for('edit_profile', userID = user.id) }}" class="submitButton">EDIT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="chapters">
+        <h2>Quizzes Attempted: {{ user.quiz_results|length }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>QUIZ NAME</th>
+                    <th>LAST ATTEMPTED AT</th>
+                    <th>MARKS SCORED</th>
+                    <th>ATTEMPT NO</th>
+                    <th class="options">OPTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if user.quiz_results %}
+                    {% for result in user.quiz_results %}
+                    <tr>
+                        <td>{{ result.quiz.name }}</td>
+                        {% if result.attempt_ended_at %}
+                            <td>{{ result.attempt_ended_at.strftime('%d %b %Y, %H:%M') }}</td>
+                        {% else %}
+                            <td>-- --</td>
+                        {% endif %}
+                        <td>{{ result.marks_scored }}</td>
+                        <td>{{ result.attempt_no }}</td>
+                        <td class="options">
+                            <a href="{{ url_for('quiz_result', quizID = result.quiz_id, resultID = result.quizResult_id) }}" class="options-btn">VIEW DETAILS</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-chap">Hmm.. doesn't look right :3 Attempt a quiz maybe?</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+

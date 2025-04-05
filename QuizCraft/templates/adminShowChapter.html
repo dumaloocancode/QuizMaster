@@ -1,0 +1,101 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+{{ chapter.name }}
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminShowChapter.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+        <div class="container-for-sub">
+            <div class="chapters">
+                <h1>{{ chapter.name }} </h1>
+                <p>{{ chapter.description }}</p>
+                <h2>Active Quizzes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>QUIZ NAME</th>
+                            <th>MARKING SCHEME</th>
+                            <th>TIME DURATION</th>
+                            <th>DEADLINE</th>
+                            <th class="options">OPTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if chapter.quizzes %}
+                            {% for quiz in chapter.quizzes %}
+                            <tr>
+                                <td>{{ quiz.name }}</td>
+                                <td>+{{ quiz.marking_scheme_pos }}, -{{ quiz.marking_scheme_neg }}</td>
+                                <td>{{ quiz.time_duration }}</td>
+                                {% if quiz.deadline %}
+                                    <td>{{ quiz.deadline.strftime('%d-%m-%y %H:%M') }}</td>
+                                {% else %}
+                                    <td> -- -- </td>
+                                {% endif %}
+                                <td class="options">
+                                    <a href="{{ url_for('edit_quiz', subjectID = subject.subject_id, chapterID = chapter.chapter_id, quizID = quiz.quiz_id) }}" class="options-btn">Edit</a>
+                                    <a href="{{ url_for('delete_quiz', subjectID = subject.subject_id, chapterID = chapter.chapter_id, quizID = quiz.quiz_id) }}" class="options-btn">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="no-chap">No quizzes for this chapter, please try again later</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('search-input');
+                const tableBody = document.querySelector('.chapters table tbody');
+                const quizRows = Array.from(tableBody.querySelectorAll('tr'));
+
+                function toggleNoResultsRow(visible) {
+                    let noResultsRow = tableBody.querySelector('.no-results-row');
+
+                    if (!noResultsRow && visible) {
+                        noResultsRow = document.createElement('tr');
+                        noResultsRow.className = 'no-results-row';
+                        noResultsRow.innerHTML = '<td colspan="5" class="no-chap">No matching quizzes found</td>';
+                        tableBody.appendChild(noResultsRow);
+                    }
+
+                    if (noResultsRow) {
+                        noResultsRow.style.display = visible ? '' : 'none';
+                    }
+                }
+
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    let visibleCount = 0;
+
+                    quizRows.forEach(row => {
+                        if (row.classList.contains('no-results-row')) return;
+
+                        const rowText = Array.from(row.cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+                        const match = rowText.includes(searchTerm);
+                        row.style.display = match ? '' : 'none';
+
+                        if (match) visibleCount++;
+                    });
+
+                    toggleNoResultsRow(visibleCount === 0 && searchTerm !== '');
+                });
+            });
+
+        </script>
+    
+{% endblock %}
+
+{% block fixedButton %}
+    <a href="{{ url_for('create_quiz', subjectID = subject.subject_id, chapterID = chapter.chapter_id) }}" id="submitButton" class="add-chap-btn">Add Quiz</a>
+{% endblock %}

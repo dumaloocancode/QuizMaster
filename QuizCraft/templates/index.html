@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+QuizCraft
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename='src/index.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+<div class="section-center">
+    <h1>Welcome to QuizCraft.</h1>
+    <h3>Craft & manage quizzes seamlessly. It's simple and easy!</h3>
+    <a href="{{ url_for('signup') }}" class="get-started-btn"><span>Get started!</span></a>
+</div>
+
+{% endblock %}

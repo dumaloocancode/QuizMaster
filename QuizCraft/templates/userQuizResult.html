@@ -1,0 +1,73 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+Quiz Result
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userQuizResult.css') }}  
+{% endblock %}
+
+{% block bodyContent %}
+<div class="result-container">
+    <div class="result-header">
+        <h1>Quiz Result: {{ result.quiz.name }}</h1>
+    </div>
+    
+    <div class="result-summary">
+        <div class="score">
+            {{ result.marks_scored }} / {{ result.total_marks }}
+        </div>
+        <div class="result-details">
+            <div class="detail-item">
+                <strong>Attempt:</strong> {{ result.attempt_no }}
+            </div>
+            <div class="detail-item">
+                <strong>Started:</strong> {{ result.attempt_started_at.strftime('%d %b %Y, %H:%M') }}
+            </div>
+            <div class="detail-item">
+                {% if result.attempt_ended_at %}
+                    <strong>Completed:</strong> {{ result.attempt_ended_at.strftime('%d %b %Y, %H:%M') }}
+                {% else %}
+                    <strong>Incomplete:</strong> Please return and complete the quiz!
+                {% endif %}
+            </div>
+            <div class="detail-item">
+                {% if result.attempt_ended_at %}
+                    <strong>Time Taken:</strong> {{ convertDeltaDate(result.attempt_ended_at -  result.attempt_started_at) }}
+                {% else %}
+                    <strong>Time Taken:</strong> -- -- 
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="answers-review">
+        <h2>Review Your Answers</h2>
+        
+        {% for answer in result.user_answers %}
+        <div class="question-card">
+            <div class="question-statement">{{ answer.questions.statement }}</div>
+            
+            <div class="options-list">
+                {% for option in answer.questions.options %}
+                <div class="option-item 
+                    {% if option.is_correct %}correct-answer{% endif %}
+                    {% if answer.selectedOption_id == option.option_id and not option.is_correct %}wrong-answer{% endif %}">
+                    
+                    {% if answer.selectedOption_id == option.option_id %}
+                    <span class="user-selected">Your answer: {{ option.text }}</span>
+                    {% elif option.is_correct %}
+                    <span>Correct answer: {{ option.text }}</span>
+                    {% else %}
+                    {{ option.text }}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Add Chapter
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminEditChapter.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="create-chap-form">
+        <form method="POST">
+            <div class="form-content">
+                <div class="text-fields">
+                    <div class="field-group">
+                        <label for="chapterName">CHAPTER NAME</label>
+                        <input type="text" id="chapterName" name="chapterName" placeholder="{{ chapter.name }}">
+                    </div>
+                    <div class="field-group">
+                        <label for="chapterDescription">CHAPTER DESCRIPTION</label>
+                        <input type="text" id="chapterDescription" name="chapterDescription" placeholder="{{ chapter.description }}">
+                    </div>
+                    <div>
+                        <button type="submit" id="submitButton">Confirm Changes</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+{% endblock %}

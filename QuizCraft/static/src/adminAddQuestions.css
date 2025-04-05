@@ -1,0 +1,178 @@
+.create-chap-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    /* flex-direction: row; */
+    gap: 20px; 
+}
+
+.text-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.field-group label {
+    font-family: 'Play', sans-serif;
+    font-weight: bold;
+}
+
+.field-group input {
+    text-transform: none;
+    background-color: inherit;
+    border: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+    width: 100%;
+    height: auto;
+    padding: 0.8em 1em 0.8em 0.4em;
+    font-family: 'Play';
+    font-size: 14px;
+    font-weight: 600;
+    color: #2f5f48;
+}
+
+.field-group input:focus {
+    outline: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+}
+
+.field-group input:hover {
+    border-bottom-color: #2f5f48; /* Change border color on hover */
+}
+
+.correct-option{
+    font-family: 'Play';
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.select-option{
+    text-transform: none;
+    background-color: inherit;
+    border: none;
+    /* border-bottom: 1px solid rgba(142, 108, 108, 0.4); */
+    /* border-radius: 0.2em; */
+    border-bottom:1px solid rgba(101, 98, 98, 0.4);
+    width: 100%;
+    height: auto;
+    padding: 0.8em 1em 0.8em 0.4em;
+    font-family: 'Play';
+    font-size: 14px;
+    font-weight: 600;
+    color: #2f5f48;
+    line-height: 1.2em;
+    letter-spacing: -0.2px;
+}
+
+.select-option:focus{
+    outline: none;
+    border-bottom: 1px solid #2f5f48;
+}
+
+.select-option:hover{
+    border-bottom: 1px solid #2f5f48;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    margin-left: 17px;
+    text-align: center;
+    color: #2f5f48;
+}
+
+a{
+    text-decoration: None;
+    text-decoration-color: #2f5f48;
+}
+
+h1{
+    font-family: 'Play';
+}
+/* 
+.confirm-quiz {
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    background-color: transparent;
+    color: #2f5f48;
+    border: 2px solid #2f5f48;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.confirm-quiz::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2f5f48;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+.confirm-quiz:hover::before {
+    transform: scaleY(1);
+}
+
+.confirm-quiz:hover {
+    color: beige;
+} */
+
+#submitButton {
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    background-color: transparent;
+    color: #2f5f48;
+    border: 2px solid #2f5f48;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#submitButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2f5f48;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+#submitButton:hover::before {
+    transform: scaleY(1);
+}
+
+#submitButton:hover {
+    color: beige;
+}

@@ -1,0 +1,59 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+User Summary
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userSummaryChart.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>USER SUMMARY</h1>
+    </div>
+    
+    <div class="chart-row">
+        <div class="chart-box">
+            <div class="chart-container">
+                <canvas id="quizAttemptsByDay"></canvas>
+            </div>
+        </div>
+        <div class="chart-box">
+            <div class="chart-container">
+                <canvas id="dailyPerformance"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chart-row">
+        <div class="chart-box">
+            <div class="chart-container">
+                <canvas id="subjectPerformance"></canvas>
+            </div>
+        </div>
+        <div class="chart-box">
+            <div class="chart-container">
+                <canvas id="chapterPerformance"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/userSummaryChart.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+        const quizResults = JSON.parse('{{ quiz_results|tojson }}');
+        renderQuizAttemptsByDay(quizResults);
+        renderDailyPerformance(quizResults);
+        renderSubjectPerformance(quizResults);
+        renderChapterPerformance(quizResults);
+    });
+    
+</script>
+
+{% endblock %}

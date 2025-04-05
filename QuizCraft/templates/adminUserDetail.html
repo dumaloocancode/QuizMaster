@@ -1,0 +1,52 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+User Details
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminUserDetail.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+    <div class="header">
+        USER DETAILS FOR {{ user.name }}
+    </div>
+
+    <div class="chapters">
+        <!-- <h2>Details for: {{ user.name }}</h2> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>QUIZ NAME</th>
+                    <th>ATTEMPT NO.</th>
+                    <th>LAST ATTEMPTED AT</th>
+                    <th>TOTAL MARKS</th>
+                    <th class="options">OPTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if user %}
+                    {% for result in user.quiz_results %}
+                    <tr>
+                        <td>{{ result.quiz.name }}</td>
+                        <td>{{ result.attempt_no }}</td>
+                        <td class="attempt-date">{{ result.attempt_ended_at.strftime('%d-%m-%y %H:%M') }}</td>
+                        <td>{{ result.marks_scored }}</td>
+                        <td class="options">
+                            <a href="{{ url_for('admin_user_result', userID = user.id, quizID = result.quiz.quiz_id, resultID = result.quizResult_id) }}" class="options-btn">VIEW DETAILS</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-chap">This user has not attempted any quiz yet!</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    
+{% endblock %}

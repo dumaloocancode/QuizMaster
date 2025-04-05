@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+body{
+    font-family: 'Play', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+    /* color: #ececee; */
+    /* background-color: #1f2029; */
+    color: #2f5f48;
+    background-color: #f3f2ec;
+    overflow: hidden;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 4%;
+    height: 100vh;
+    width: 100%;
+}
+
+.section-center{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    z-index: 6;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+h1{
+    font-family: 'Play', sans-serif;
+    font-weight: 800;
+    font-size: 5vw;
+    line-height: 1;
+    /* color: #ffeba7; */
+    color: #2f5f48;
+    text-align: center;
+    -webkit-text-stroke: 2px #2f5f48;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: spin 1s ease-in-out 0s forwards;
+}
+
+.get-started-btn{
+    display: inline-block;
+    /* border-radius: 4px; */
+    /* background-color: #407a97; */
+    box-shadow: none;
+    background-color: #2f5f48;
+    border: none;
+    color: beige;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 5px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    z-index: 15;
+    animation: spin 1s ease-in-out 0s forwards;
+}
+
+.get-started-btn span{
+    font-family: 'Play', sans-serif;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.get-started-btn:hover {
+    box-shadow: 4px 4px 0px rgb(0, 0, 0, 0.1),
+    4px 4px 0px #060c09;
+    z-index: 0;
+}
+
+.get-started-btn span:after{
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.get-started-btn:hover span{
+    padding-right: 25px;
+    color: beige;
+}
+
+.get-started-btn:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+h3{
+    animation: spin 1s ease-in-out 0s forwards;
+}
+
+@keyframes spin{
+    0%{
+        transform: translate(-100%);
+    }
+}

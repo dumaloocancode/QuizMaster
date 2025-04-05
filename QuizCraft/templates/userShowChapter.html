@@ -1,0 +1,56 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+{{ chapter.name }}
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/userShowChapter.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+    
+        <div class="container-for-sub">
+            <div class="chapters">
+                <h1>{{ chapter.name }} </h1>
+                <p>{{ chapter.description }}</p>
+                <h2>ACTIVE QUIZZES</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>QUIZ NAME</th>
+                            <th>MARKING SCHEME</th>
+                            <th>TIME DURATION</th>
+                            <th>DEADLINE</th>
+                            <th class="options">OPTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if chapter.quizzes %}
+                            {% for quiz in chapter.quizzes %}
+                            <tr>
+                                <td>{{ quiz.name }}</td>
+                                <td>+{{ quiz.marking_scheme_pos }}, -{{ quiz.marking_scheme_neg }}</td>
+                                <td>{{ quiz.time_duration }}</td>
+                                {% if quiz.deadline %}
+                                    <td>{{ quiz.deadline.strftime('%d-%m-%y %H:%M') }}</td>
+                                {% else %}
+                                    <td> -- -- </td>
+                                {% endif %}
+                                <td class="options">
+                                    <a href="{{ url_for('attempt_quiz', userID = user.id, subjectID = subject.subject_id, chapterID = chapter.chapter_id, quizID = quiz.quiz_id) }}" class="options-btn">ATTEMPT QUIZ</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="no-chap">No quizzes for this chapter, please try again later</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+{% endblock %}
+

@@ -1,0 +1,50 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Add Quiz
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminCreateQuiz.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="create-chap-form">
+        <form method="POST">
+            <div class="form-content">
+                <div class="text-fields">
+                    <div class="field-group">
+                        <label for="quizName" class="quizName"><h3>Quiz Name</h3></label>
+                        <input type="text" name="quizName" id="quizName">
+                    </div>
+                    <div class="scheme">
+                        <div class="field-group">
+                            <label for="markingSchemePos" class="markingSchemePos"><h3>Marking Scheme (Positive)</h3></label>
+                            <input type='number' name="markingSchemePos" id="markingSchemePos" required="required">
+                        </div>
+                        <div class="field-group">
+                            <label for="markingSchemeNeg" class="markingSchemeNeg"><h3>Marking Scheme (Negative)</h3></label>
+                            <input type="number" name="markingSchemeNeg" id="markingSchemeNeg" required="required">
+                        </div>
+                        <div class="field-group">
+                            <label for="timeDuration" class="timeDuration"><h3>Time Duration (HH:MM)</h3></label>
+                            <input type="text" name="timeDuration" id="timeDuration" required='required'>
+                        </div>
+                    </div>
+                    <div class="field-group"></div>
+                        <div class="center">
+                            <label for="deadline" class="deadline"><h3>Deadline (Optional)</h3></label>
+                            <input type="datetime-local" name="deadline" id="deadline">
+                        </div>
+                        
+                    </div>
+                    <div class="create-quiz-btn">
+                        <button type="submit" id="submitButton">Create Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Summary and Stats
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminSummaryChart.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+        <h1>USER SUMMARY AND STATISTICS</h1>
+    </div>
+    
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-icon">👤</div>
+            <div class="stat-number" id="total-users">{{ stats.totalUsers }}</div>
+            <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📚</div>
+            <div class="stat-number" id="total-subjects">{{ stats.totalSubjects }}</div>
+            <div class="stat-label">Subjects</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📖</div>
+            <div class="stat-number" id="total-chapters">{{ stats.totalChapters }}</div>
+            <div class="stat-label">Chapters</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon">📔</div>
+            <div class="stat-number" id="total-quizzes">{{ stats.totalQuizzes }}</div>
+            <div class="stat-label">Quizzes</div>
+        </div>
+    </div>
+    <div class="chart-row">
+        <div class="chart-container">
+            <canvas id="subjectWisePerformance"></canvas>
+        </div>
+    
+        <div class="chart-container">
+            <canvas id="chapterPerformance"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const subjectData = JSON.parse('{{ subject_data|tojson }}');
+        const chapterData = JSON.parse('{{ chapter_data|tojson }}');
+        renderSubjectWisePerformance(subjectData);
+        renderChapterPerformance(chapterData)
+    });
+    
+    function renderSubjectWisePerformance(subjectData) {
+        const ctx = document.getElementById('subjectWisePerformance').getContext('2d');
+        
+        // Extract labels and datasets
+        const subjects = subjectData.map(item => item.subject);
+        const avgScores = subjectData.map(item => item.averageScore);
+        const attemptCounts = subjectData.map(item => item.attemptCount);
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: subjects,
+                datasets: [
+                    {
+                        label: 'Average Score (%)',
+                        data: avgScores,
+                        backgroundColor: 'rgba(47, 95, 72, 0.7)',
+                        borderColor: 'rgb(47, 95, 72)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Number of Attempts',
+                        data: attemptCounts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1,
+                        type: 'line',
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Average Score (%)'
+                        }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Attempts'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Subjects'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Subject-wise User Performance',
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderChapterPerformance(chapterData) {
+    const ctx = document.getElementById('chapterPerformance').getContext('2d');
+    
+    // Extract labels and data
+    const chapters = chapterData.map(item => item.chapter);
+    const avgScores = chapterData.map(item => item.averageScore);
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chapters,
+            datasets: [{
+                label: 'Average Score (%)',
+                data: avgScores,
+                backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                borderColor: 'rgb(75, 192, 192)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Score (%)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Chapters'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Chapter-wise Performance',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+{% endblock %}

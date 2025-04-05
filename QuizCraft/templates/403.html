@@ -1,0 +1,15 @@
+{% extends 'userBase.html' %}
+
+{% block title %}
+403 - Forbidden Access
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/403.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+<div class="abort-403">
+    <center><h1>Forbidden Access</h1></center>
+</div>
+{% endblock %}

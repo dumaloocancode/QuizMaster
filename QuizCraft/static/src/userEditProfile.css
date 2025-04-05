@@ -1,0 +1,119 @@
+.edit-sub-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 170px;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; 
+}
+
+.upload-container {
+    display: flex;
+    align-items: center;
+}
+
+.upload-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; 
+    height: 200px; 
+    border: 2px dashed #2f5f48;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #f3f2ec; 
+    position: relative;
+}
+
+.upload-box span {
+    font-family: 'Play', sans-serif;
+    font-size: 14px;
+    color: #2f5f48;
+}
+
+.upload-box input[type='file'] {
+    opacity: 0; 
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.text-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.field-group label {
+    font-family: 'Play', sans-serif;
+    font-weight: bold;
+}
+
+.field-group input {
+    text-transform: none;
+    background-color: inherit;
+    border: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+    width: 100%;
+    height: auto;
+    padding: 0.8em 1em 0.8em 0.4em;
+    font-family: 'Play';
+    font-size: 14px;
+    font-weight: 600;
+    color: #2f5f48;
+}
+
+.field-group input:focus {
+    outline: None;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);
+}
+
+.field-group input:hover {
+    border-bottom-color: #2f5f48; /* Change border color on hover */
+}
+
+
+#submitButton {
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    background-color: transparent;
+    color: #2f5f48;
+    border: 2px solid #2f5f48;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#submitButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2f5f48;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+#submitButton:hover::before {
+    transform: scaleY(1);
+}
+
+#submitButton:hover {
+    color: beige;
+}

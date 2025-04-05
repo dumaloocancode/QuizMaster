@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% block link %} {% endblock %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='src/adminBase.css') }}">
+</head>
+<body>
+    <div class="nav-header">
+
+        <div class="navigation">
+            <nav>
+                <!-- link to home, with my app logo -->
+                <a href="{{ url_for('admin_dashboard') }}">
+                    <img src="{{ url_for('static', filename='./QuizCraftLogo.png') }}" alt="QuizCraft logo">
+                </a>
+        
+                <!-- link to dashboard for a particular user
+                the design will differ based on admin or user but all the tempaltes will inherit 
+                this template for the header navigation -->
+                <a class="dashboard underline-effect" href="{{ url_for('admin_dashboard') }}">
+                    Home
+                </a>
+        
+                <!-- link to scores -->
+                <a class="scores underline-effect" href="{{ url_for('admin_users') }}">
+                    Users
+                </a>
+        
+                <!-- link to summary -->
+                <a class="summary underline-effect" href="{{ url_for('admin_summary') }}">
+                    Summary
+                </a>
+                
+                <!-- logging out -->
+                <a class="logout underline-effect" href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+        
+            </nav>
+        </div>
+
+        <div class="search-welcome">
+            <input type="text" name="search" id="search-input" placeholder="Search">
+            {% block searchBar %}
+            {% endblock %}
+            <span>Hello {{ userName }}</span>
+        </div>
+
+    </div>
+
+    <div class="container">
+        {% block bodyContent %}
+        {% endblock %}
+    </div>
+
+    {% block fixedButton %}
+    {% endblock %}
+
+
+    <div class="alert-container">
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                    <div class="alert-box alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% else %}
+                    <div class="alert-box success">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+</html>

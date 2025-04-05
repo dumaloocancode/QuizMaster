@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body{
+    color: #2f5f48;
+    background-color: #f3f2ec;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 4%;
+    /* height: 100vh; */
+    /* width: 100%; */
+}
+
+/* left side of the navigation bar including the links to different routes */
+nav a{
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+navigation{
+    display: flex;
+}
+
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+}
+
+nav a img{
+    width: 50px;
+    height: max-content;
+}
+
+.nav-header{
+    background-color: #291d1df6;
+    /* background-color: rgba(213, 191, 66, 0.2);   */
+    backdrop-filter: blur(3px);
+    border-radius: 10px; 
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    margin-bottom: 2px;
+    top: 0;
+    z-index: 700;
+}
+
+.container{
+    height: 90.9vh;
+    width: 99vw;
+    /* background-color: rgba(213, 191, 66, 0.2);   */
+    backdrop-filter: blur(3px);
+    border-radius: 10px; 
+}
+
+.dashboard{
+    color: inherit;
+    font-family: 'Press Start 2P';
+    padding-top: 14px;
+    font-size: 18px;
+}
+
+.summary{
+    color: inherit;
+    font-family: 'Press Start 2P';
+    padding-top: 14px;
+    font-size: 18px;
+}
+
+.scores{
+    color: inherit;
+    font-family: 'Press Start 2P';
+    padding-top: 14px;
+    font-size: 18px;
+}
+
+.logout{
+    color: inherit;
+    font-family: 'Press Start 2P';
+    padding-top: 14px;
+    font-size: 18px;
+}
+
+/* right side of the naaviagtion bar including the search and welcome message */
+.search-welcome{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+}
+
+.search-welcome span{
+    font-family: 'Press Start 2P';
+    padding-top: 14px;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+.search-welcome input{
+    background: inherit;
+    color: #f3f2ec;
+    height: 30px;
+    width: fit-content;
+    margin-top: 7px;
+    font-family: 'Press Start 2P';
+    border: none;
+    border-bottom: 1px solid rgba(101, 98, 98, 0.4);;
+}
+
+.search-welcome input:hover{
+    border-bottom: 2px solid #2f5f48;
+}
+
+.search-welcome input:focus{
+    outline: none;
+    border-bottom: 2px solid #2f5f48;
+}
+
+.underline-effect::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #2f5f48; 
+    bottom: 1px; 
+    left: 50%;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.underline-effect:hover::before,
+.underline-effect:focus::before {
+    width: 100%;
+    left: 0;
+}
+
+/* alert and succes boz for flashign messages */
+.alert-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: max-content;
+    height: 20px;
+    padding: 15px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    font-family: 'Press Start 2P';
+    z-index: 500;
+    animation: fadeOut 3.5s ease-in-out forwards;
+}
+
+.alert {
+    background-color: #9a101b; 
+    color: #f8cccf;
+    border: 1px solid #620008;
+}
+
+.success {
+    color: #115221;
+    background-color: #b7e9c4;
+    border: 1px solid #8ed1a0;
+}
+
+@keyframes fadeOut{
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    33%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    67%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+/* submit Button */
+#submitButton {
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    background-color: transparent;
+    color: #2f5f48;
+    border: 2px solid #2f5f48;
+    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#submitButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2f5f48;
+    z-index: -1;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+#submitButton:hover::before {
+    transform: scaleY(1);
+}
+
+#submitButton:hover {
+    color: beige;
+}

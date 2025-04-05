@@ -1,0 +1,83 @@
+{% extends 'adminBase.html' %}
+
+{% block title %}
+Edit Quiz
+{% endblock %}
+
+{% block link %}
+{{ url_for('static', filename = 'src/adminEditQuiz.css') }}
+{% endblock %}
+
+{% block bodyContent %}
+
+    <div class="create-chap-form">
+        <form method="POST">
+            <div class="form-content">
+                <div class="text-fields">
+                    <div class="field-group">
+                        <label for="quizName" class="quizName"><h3>Quiz Name</h3></label>
+                        <input type="text" name="quizName" id="quizName" placeholder="{{ quiz.name }}">
+                    </div>
+                    <div class="scheme">
+                        <div class="field-group">
+                            <label for="markingSchemePos" class="markingSchemePos"><h3>Marking Scheme (Positive)</h3></label>
+                            <input type='number' name="markingSchemePos" id="markingSchemePos" placeholder="{{ quiz.marking_scheme_pos }}">
+                        </div>
+                        <div class="field-group">
+                            <label for="markingSchemeNeg" class="markingSchemeNeg"><h3>Marking Scheme (Negative)</h3></label>
+                            <input type="number" name="markingSchemeNeg" id="markingSchemeNeg" placeholder="{{ quiz.marking_scheme_neg }}">
+                        </div>
+                        <div class="field-group">
+                            <label for="timeDuration" class="timeDuration"><h3>Time Duration (HH:MM)</h3></label>
+                            <input type="text" name="timeDuration" id="timeDuration" placeholder="{{ quiz.time_duration }}">
+                        </div>
+                    </div>
+                    <div class="field-group"></div>
+                        <div class="center">
+                            <label for="deadline" class="deadline"><h3>Deadline (Optional)</h3></label>
+                            <input type="datetime-local" name="deadline" id="deadline">
+                        </div>
+                    </div>
+                    <div class="question-heading">
+                        <div class="center">
+                            QUESTIONS FOR: {{ quiz.name }}
+                        </div>
+                    </div>
+                    
+                        {% if (quiz.questions) %}
+                            {% for question in quiz.questions %}
+                            <div class="question-container">
+                                <div class="field-group">
+                                    <label for="question_{{ question.question_id }}" class="quizName"><h3>Question {{ loop.index }}</h3></label>
+                                    <input type="text" name="question_{{ question.question_id }}" id="question_{{ question.question_id }}" placeholder="{{ question.statement }}">
+                                </div>
+                                {% for option in question.options %}
+                                    <div class="field-group">
+                                        <label for="option_{{ option.option_id }}">OPTION {{ loop.index }}:</label>
+                                        <input type="text" name="option_{{ option.option_id }}" placeholder="{{ option.text }}">
+                                    </div>
+                                {% endfor %}
+                                <div class="correct-option">
+                                    <label for="correctOption_{{ question.question_id }}">CORRECT OPTION:</label>
+                                    <select class="select-option" name="correctOption_{{ question.question_id }}" required="required">
+                                        {% for option in question.options %}
+                                            <option value="{{ option.option_id }}" {% if option.is_correct %}selected{% endif %}>Option {{ loop.index }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <h2>No questions for Quiz! Add Some questions</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <button onclick="{{ url_for('show_chapter', subjectID = subject.subject_id, chapterID = chapter.chapter_id) }}" type="submit" id="submitButton">CONFIRM CHANGES</button>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
